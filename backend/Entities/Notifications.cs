@@ -9,6 +9,7 @@ public class Notifications
     public string? Content { get; set; }
     public DateTime SendAt { get; set; }
     public int? GroupId { get; set; }
+    public int? UsersId { get; set; }
     public Groups? Groups { get; set; }
     public bool IsSeen { get; set; }
 }

@@ -2,5 +2,6 @@ backend/bin
 backend/obj
 backend/Properties
 backend/Migrations
+backend/chat.db
 
 appsettings.json

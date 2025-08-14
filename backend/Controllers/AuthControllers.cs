@@ -116,4 +116,22 @@ public class AuthController : ControllerBase
 
         return Ok(userList);
     }
+
+    [HttpPost("sendrequest")]
+    public async Task<IActionResult> SendFriendRequest([FromBody] FriendRequestDto friendRequestDto)
+    {
+        Notifications request = new()
+        {
+            UserId = friendRequestDto.UserId1,
+            UsersId = friendRequestDto.UserId2,
+            Type = "Friend_Request",
+            SendAt = DateTime.Now
+        };
+
+        await dbContext.Notifications.AddAsync(request);
+        await dbContext.SaveChangesAsync();
+
+        return Ok();
+    }
+    
 }
