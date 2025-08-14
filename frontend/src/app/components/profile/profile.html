@@ -1,8 +1,55 @@
 <div class="main-body">
-    <img [src]="this.service.userDetails.profilePic" alt="">
-    {{ this.service.userDetails.fullName }}
-    {{ this.service.userDetails.email }}
-    {{ this.service.userDetails.language }}
-    {{ this.service.userDetails.joinedAt }}
-    {{ this.service.userDetails.bio }}
+    <h2>Profile</h2>
+    <div class="body">
+        <div class="left">
+            <h2>{{ this.service.userDetails.fullName }}</h2>
+            <div class="image">
+                <img [src]="this.service.userDetails.profilePic" alt="">
+                <i class="fa fa-pencil"></i>
+            </div>
+        </div>
+        <div class="right">
+            <h3>Bio and Other Details</h3>
+            <div class="row">
+                <div class="col">
+                    <h4>Email</h4> 
+                    <label>{{ this.service.userDetails.email }}</label>
+                </div>
+                <div class="col">
+                    <h4>Total Friends</h4>
+                    <label>0</label>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="row">
+                <div class="col">
+                    <h4>Language</h4> 
+                    <label>{{ this.service.userDetails.language }}</label>
+                </div>
+                <div class="col">
+                    <h4>No. of Groups</h4>
+                    <label>0</label>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="row">
+                <div class="col">
+                    <h4>Joined on</h4>
+                    <label>{{ this.joinDate }}</label>
+                </div>
+                <div class="col">
+                    <h4>Recent Friend</h4>
+                    <label>Hello</label>
+                </div>
+            </div>
+            <div class="line"></div>
+            <div class="bio">
+                <div class="bio-head">
+                    <h4>Bio</h4>
+                    <i class="fa fa-pencil"></i>
+                </div> 
+                <label>{{ this.service.userDetails.bio }}</label>
+            </div>
+        </div>
+    </div>
 </div>

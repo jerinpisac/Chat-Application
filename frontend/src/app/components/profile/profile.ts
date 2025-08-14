@@ -7,8 +7,12 @@ import { AuthService } from '../../shared/auth';
   templateUrl: './profile.html',
   styleUrl: './profile.css'
 })
-export class Profile {
-  
+export class Profile implements OnInit{
+  joinDate : string = "";
   constructor(public service : AuthService) {}
+  
+  ngOnInit(): void {
+    this.joinDate = this.service.userDetails.joinedAt.split(" ")[0].toString();
+  }
 
 }

@@ -106,5 +106,6 @@
     padding-top: 70px;
     padding-left: 15%;
     width: 100%;
+    min-height: 100vh;
     box-sizing: border-box;
 }
