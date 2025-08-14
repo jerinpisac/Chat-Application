@@ -1,0 +1,35 @@
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.main-body{
+    width: 1000px;
+    display: flex;
+    border: 1px solid #ccc;
+    box-shadow: 0px 3px 6px #ccc;
+    border-radius: 10px;
+}
+
+.left{
+    width: 500px;
+    background-color: #28c464;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+p{
+    text-align: center;
+}
+
+img{
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}

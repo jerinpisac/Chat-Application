@@ -1,0 +1,17 @@
+<div class="logbody">
+    <div class="logo">
+        <img src="../../../../logo.png" alt="">
+        <h1>PingMe</h1>
+    </div>
+    <h2>Welcome Back</h2>
+    <h4>Sign in to your account to chat with your friends</h4>
+    <form #form="ngForm" (submit)="login()">
+        <input type="email" placeholder="Email..." name="email" #email="ngModel" [(ngModel)]="this.service.email">
+        <input type="password" placeholder="Password..." name="pwd" #pwd="ngModel" [(ngModel)]="this.service.password">
+        <button type="submit">Login</button>
+    </form>
+    <div class="register">
+        <p>Don't have an account?</p>
+        <a routerLink="/register">Register</a>
+    </div>
+</div>

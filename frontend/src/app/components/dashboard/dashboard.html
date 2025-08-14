@@ -1,0 +1,28 @@
+<div class="header-bar">
+    <div class="logo">
+        <img src="../../../../logo.png" alt="">
+        <h2>PingMe</h2>
+    </div>
+    <div class="menu">
+        <i routerLink="/dashboard/notifications" class="fa fa-bell"></i>
+        <img routerLink="/dashboard/profile" [src]="this.service.userDetails.profilePic || this.altPic">
+        <i (click)="logout()" class="fa fa-sign-out"></i>
+    </div>
+</div>
+<div class="navbar">
+    <div class="items" routerLink="/dashboard">
+        <i class="fa fa-home"></i>
+        <label>Home</label>
+    </div>
+    <div class="items" routerLink="/dashboard/friends">
+        <i class="fa fa-users"></i>
+        <label>Friends</label>
+    </div>
+    <div class="items" routerLink="/dashboard/notifications">
+        <i class="fa fa-bell"></i>
+        <label>Notifications</label>
+    </div>
+</div>
+<div class="main-dashboard">
+    <router-outlet />
+</div>

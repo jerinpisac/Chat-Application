@@ -1,0 +1,148 @@
+.friends-sections,
+.new-friends-sections{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 30px 50px;
+}
+
+.friends-sections .friends-header{
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.friend-request{
+    font-size: 18px;
+    border: 2px solid white;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.friend-request label{
+    cursor: pointer;
+}
+
+.friend-request i{
+    margin-right: 15px;
+}
+
+.no-friends{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin-top: 40px;
+    background: black;
+    border-radius: 10px;
+    padding: 10px 0px;
+}
+
+.no-friends label,
+.new-friends-sections .friends-header label{
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+.new-friends-sections .friends-header{
+    color: white;
+}
+
+.new-friends-sections .friends-body{
+    margin: 20px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.friend-card{
+    width: 350px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 3px 6px black;
+    transition: 300ms ease-in-out;
+}
+
+.friend-card:hover{
+    scale: 1.02;
+}
+
+.friend-card .friend-card-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin: 20px 0px;
+}
+
+.friend-card-header img{
+    width: 60px;
+    height: 60px;
+}
+
+.friend-card-middle{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 20px 0px;
+}
+
+.friend-card-language{
+    background-color: #28c464;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+.friend-card-joined-on{
+    border: 2px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+.friend-card-bio{
+    color: white;
+    margin: 20px 0px;
+}
+
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background: #28c464;
+    border: 2px solid #28c464;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+}
+
+button::after{
+    content: '';
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    background: black;
+    transition: 300ms ease-in-out;
+    border-radius: 20px;
+}
+
+button:hover::after{
+    width: 100%;
+}
+
+button:hover{
+    color: #28c464;
+}

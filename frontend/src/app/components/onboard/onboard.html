@@ -1,0 +1,21 @@
+<div class="body">
+    <div class="main-body">
+        <h2>Complete your Profile</h2>
+        <div class="avatar">
+            <img [src]="'../../../../' + this.service.idx + '.png'" alt="">
+            <button (click)="generate()">Generate Random Avatar</button>
+        </div>
+        <form #form="ngForm" (submit)="register()">
+            <input type="text" placeholder="Full Name..." name="fullName" #fullName="ngModel" [(ngModel)]="this.service.fullName">
+            <textarea placeholder="Bio..." name="bio" #bio="ngModel" [(ngModel)]="this.service.bio"></textarea>
+            <mat-form-field style="color: #ccc;">
+                <mat-label>Select the language: </mat-label>
+                <mat-select [(value)]="this.service.language">
+                    <mat-option value="English">English</mat-option>
+                    <mat-option value="Hindi">Hindi</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+</div>
