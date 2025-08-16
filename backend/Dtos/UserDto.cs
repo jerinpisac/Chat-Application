@@ -9,5 +9,6 @@ public record class UserDto
     string? Bio,
     string Language, 
     string? Status,
-    string JoinedAt 
+    string JoinedAt,
+    bool SentRequest 
 );

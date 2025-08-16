@@ -41,7 +41,8 @@ public class AuthController : ControllerBase
                 findUser.Bio,
                 findUser.Language,
                 findUser.Status,
-                findUser.JoinedAt.ToString()
+                findUser.JoinedAt.ToString(),
+                false
             );
 
             var token = _tokenService.CreateToken(findUser);
@@ -100,6 +101,8 @@ public class AuthController : ControllerBase
 
         foreach (var user in users)
         {
+            var result = await dbContext.FriendRequest.FirstOrDefaultAsync(t => t.UserId1 == Id.Id && t.UserId2 == user.Id);
+            var res = result is not null;
             var newUser = new UserDto
             (
                 user.Id,
@@ -109,7 +112,8 @@ public class AuthController : ControllerBase
                 user.Bio,
                 user.Language,
                 user.Status,
-                user.JoinedAt.ToString()
+                user.JoinedAt.ToString(),
+                res
             );
             userList.Add(newUser);
         }
@@ -122,13 +126,36 @@ public class AuthController : ControllerBase
     {
         Notifications request = new()
         {
-            UserId = friendRequestDto.UserId1,
-            UsersId = friendRequestDto.UserId2,
+            UserId1 = friendRequestDto.UserId1,
+            UserId2 = friendRequestDto.UserId2,
             Type = "Friend_Request",
             SendAt = DateTime.Now
         };
 
+        FriendRequest friend = new()
+        {
+            UserId1 = friendRequestDto.UserId1,
+            UserId2 = friendRequestDto.UserId2
+        };
+
         await dbContext.Notifications.AddAsync(request);
+        await dbContext.FriendRequest.AddAsync(friend);
+        await dbContext.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    // [HttpPost("fetchnotifications")]
+    // public async Task<IActionResult> FetchNotifications([FromBody] int id)
+    // {
+        
+    // }
+
+    [HttpDelete("delete")]
+    public async Task<IActionResult> DeleteFriendRequest()
+    {
+        var a = await dbContext.Notifications.FirstOrDefaultAsync(x => x.Id == 6);
+        dbContext.Notifications.Remove(a!);
         await dbContext.SaveChangesAsync();
 
         return Ok();

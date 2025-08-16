@@ -28,4 +28,5 @@ export class userModel {
     status : string = "";
     profilePic : string = "";
     joinedAt : string = "";
+    sentRequest : boolean = false;
 }

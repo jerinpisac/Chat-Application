@@ -20,11 +20,12 @@ export class AuthService {
   userDetails : userModel = new userModel();
   requestLoginData : loginModel = new loginModel();
   requestRegisterData : registerModel = new registerModel();
+  friendRequestSent : number[] = [];
 
   loginUser(){
     this.requestLoginData.email = this.email;
     this.requestLoginData.password = this.password;
-    return this.http.post(environment.localhost + "/Auth/login", this.requestLoginData);
+    return this.http.post(environment.localhost + "/login", this.requestLoginData);
   }
 
   registerUser(){
@@ -35,10 +36,17 @@ export class AuthService {
     this.requestRegisterData.language = this.language;  
     this.requestRegisterData.profilePic = '../../../../' + this.idx.toString() + ".png";
     this.requestRegisterData.status = this.status; 
-    return this.http.post(environment.localhost + "/Auth/register", this.requestRegisterData);
+    return this.http.post(environment.localhost + "/register", this.requestRegisterData);
   }
 
   fetchUsers(id : number){
-    return this.http.post(environment.localhost + "/Auth/fetchusers", { id });
+    return this.http.post(environment.localhost + "/fetchusers", { id });
   }
+
+  sendFriendRequest(id : number){
+    var userId1 = this.userDetails.id;
+    var userId2 = id;
+    return this.http.post(environment.localhost + '/sendrequest', { userId1, userId2 });
+  }
+
 }

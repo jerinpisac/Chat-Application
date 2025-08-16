@@ -37,9 +37,17 @@
                     <div class="friend-card-bio">
                         {{ user.bio }}
                     </div>
-                    <button>
-                        Send Friend Request
-                    </button>
+                    @if (!user.sentRequest) {
+                        <button (click)="sendRequest(user.id)" >
+                            Send Friend Request
+                        </button>
+                    }
+                    @else{
+                        <div class="button">
+                            <i class="fa fa-check"></i>
+                            <label>Request Sent</label>
+                        </div>
+                    }
                 </div>
             }
         </div>

@@ -16,7 +16,18 @@ export class Homedash implements OnInit {
     this.service.fetchUsers(this.service.userDetails.id).subscribe({
       next: (res : any) => {
         this.users = res
+        console.log(res)
       }
+    })
+  }
+
+  sendRequest(id : number){
+    this.service.sendFriendRequest(id).subscribe({
+      next: res => {
+        alert("Request has been sent");
+        window.location.reload()
+      },
+      error: err => console.log(err)
     })
   }
 }
