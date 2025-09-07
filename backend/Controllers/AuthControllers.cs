@@ -145,11 +145,21 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
-    // [HttpPost("fetchnotifications")]
-    // public async Task<IActionResult> FetchNotifications([FromBody] int id)
-    // {
-        
-    // }
+    [HttpPost("fetchnotifications")]
+    public async Task<IActionResult> FetchNotifications([FromBody] IdDto Id)
+    {
+        var nots = dbContext.Notifications.Include(t => t.Users).Where(t => t.UserId2 != null && t.UserId2 == Id.Id && t.IsSeen == false);
+
+        var ids = await dbContext.GroupMembers.Where(t => t.UserId == Id.Id).Select(t => t.GroupId).ToListAsync();
+
+        var gnots = await dbContext.Notifications.Include(t => t.Users).Include(t => t.Groups).Where(t => t.GroupId != null && t.IsSeen == false && ids.Contains((int)t.GroupId)).ToListAsync();
+
+        return Ok(new
+        {
+            Single = nots,
+            Group = gnots
+        });
+    }
 
     [HttpDelete("delete")]
     public async Task<IActionResult> DeleteFriendRequest()
