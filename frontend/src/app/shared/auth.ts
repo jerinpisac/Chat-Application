@@ -49,4 +49,7 @@ export class AuthService {
     return this.http.post(environment.localhost + '/sendrequest', { userId1, userId2 });
   }
 
+  fetchNotifications(id : number){
+    return this.http.post(environment.localhost + '/fetchnotifications', { id });
+  }
 }
