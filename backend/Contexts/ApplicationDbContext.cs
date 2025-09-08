@@ -21,7 +21,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
        
-        modelBuilder.Entity<Notifications>().HasOne(n => n.Users).WithMany().HasForeignKey(n => n.UserId2);
+        modelBuilder.Entity<Notifications>().HasOne(n => n.Users).WithMany().HasForeignKey(n => n.UserId1);
         modelBuilder.Entity<Notifications>().HasOne(n => n.Groups).WithMany().HasForeignKey(n => n.GroupId);
         modelBuilder.Entity<Friends>().HasKey(uta => new { uta.UserId1, uta.UserId2 });
         modelBuilder.Entity<FriendRequest>().HasKey(uta => new { uta.UserId1, uta.UserId2 });
