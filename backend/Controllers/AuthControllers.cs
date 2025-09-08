@@ -41,8 +41,7 @@ public class AuthController : ControllerBase
                 findUser.Bio,
                 findUser.Language,
                 findUser.Status,
-                findUser.JoinedAt.ToString(),
-                false
+                findUser.JoinedAt.ToString()
             );
 
             var token = _tokenService.CreateToken(findUser);
@@ -101,21 +100,20 @@ public class AuthController : ControllerBase
 
         foreach (var user in users)
         {
-            var result = await dbContext.FriendRequest.FirstOrDefaultAsync(t => t.UserId1 == Id.Id && t.UserId2 == user.Id);
-            var res = result is not null;
-            var newUser = new UserDto
-            (
-                user.Id,
-                user.FullName,
-                user.Email,
-                user.ProfilePic,
-                user.Bio,
-                user.Language,
-                user.Status,
-                user.JoinedAt.ToString(),
-                res
-            );
-            userList.Add(newUser);
+            if (await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == user.Id && t.UserId2 == Id.Id) || (t.UserId2 == user.Id && t.UserId1 == Id.Id)) is null) {
+                var newUser = new UserDto
+                (
+                    user.Id,
+                    user.FullName,
+                    user.Email,
+                    user.ProfilePic,
+                    user.Bio,
+                    user.Language,
+                    user.Status,
+                    user.JoinedAt.ToString()
+                );
+                userList.Add(newUser);
+            }
         }
 
         return Ok(userList);
@@ -148,17 +146,47 @@ public class AuthController : ControllerBase
     [HttpPost("fetchnotifications")]
     public async Task<IActionResult> FetchNotifications([FromBody] IdDto Id)
     {
-        var nots = dbContext.Notifications.Include(t => t.Users).Where(t => t.UserId2 != null && t.UserId2 == Id.Id && t.IsSeen == false);
+        var nots = dbContext.Notifications.Include(t => t.Users)
+                    .Where(t => t.UserId2 != null && t.UserId2 == Id.Id && t.IsSeen == false)
+                    .OrderByDescending(t => t.SendAt);
+
+        List<NotificationsDto> snots = [];
+
+        foreach (var item in nots)
+        {
+            var x = new NotificationsDto(
+                item.UserId1,
+                item.Users!.FullName,
+                item.Users!.ProfilePic,
+                item.Type,
+                item.Content ?? "",
+                (item.SendAt.Date == DateTime.Today) ? "Today " + item.SendAt.TimeOfDay.ToString()[..5] : item.SendAt.ToString()[..16],
+                (item.Groups == null) ? "" : item.Groups.Name
+            );
+
+            snots.Add(x);
+        }
 
         var ids = await dbContext.GroupMembers.Where(t => t.UserId == Id.Id).Select(t => t.GroupId).ToListAsync();
 
-        var gnots = await dbContext.Notifications.Include(t => t.Users).Include(t => t.Groups).Where(t => t.GroupId != null && t.IsSeen == false && ids.Contains((int)t.GroupId)).ToListAsync();
+        var gnots = await dbContext.Notifications.Include(t => t.Users).Include(t => t.Groups).Where(t => t.GroupId != null && t.IsSeen == false && ids.Contains((int)t.GroupId)).OrderByDescending(t => t.SendAt).ToListAsync();
 
-        return Ok(new
+        foreach (var item in gnots)
         {
-            Single = nots,
-            Group = gnots
-        });
+            var x = new NotificationsDto(
+                item.UserId1,
+                item.Users!.FullName,
+                item.Users!.ProfilePic,
+                item.Type,
+                item.Content ?? "",
+                (item.SendAt.Date == DateTime.Today) ? "Today " + item.SendAt.TimeOfDay.ToString()[..5] : item.SendAt.ToString()[..16],
+                (item.Groups == null) ? "" : item.Groups.Name
+            );
+
+            snots.Add(x);
+        }
+
+        return Ok(snots);
     }
 
     [HttpDelete("delete")]

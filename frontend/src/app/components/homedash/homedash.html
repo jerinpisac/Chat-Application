@@ -20,34 +20,33 @@
             <label>Discover people based on your profile and enjoy!</label>
         </div>
         <div class="friends-body">
-            @for (user of users; track $index) {
-                <div class="friend-card">
-                    <div class="friend-card-header">
-                        <img [src]="user.profilePic" alt="">
-                        <label>{{ user.fullName }}</label>
-                    </div>
-                    <div class="friend-card-middle">
-                        <div class="friend-card-language">
-                            Language: {{ user.language }}
+            @if (users != []) {
+                @for (user of users; track $index) {
+                    <div class="friend-card">
+                        <div class="friend-card-header">
+                            <img [src]="user.profilePic" alt="">
+                            <label>{{ user.fullName }}</label>
                         </div>
-                        <div class="friend-card-joined-on">
-                            Joined on: {{ user.joinedAt.split(" ")[0] }}
+                        <div class="friend-card-middle">
+                            <div class="friend-card-language">
+                                Language: {{ user.language }}
+                            </div>
+                            <div class="friend-card-joined-on">
+                                Joined on: {{ user.joinedAt.split(" ")[0] }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="friend-card-bio">
-                        {{ user.bio }}
-                    </div>
-                    @if (!user.sentRequest) {
+                        <div class="friend-card-bio">
+                            {{ user.bio }}
+                        </div>
                         <button (click)="sendRequest(user.id)" >
                             Send Friend Request
                         </button>
-                    }
-                    @else{
-                        <div class="button">
-                            <i class="fa fa-check"></i>
-                            <label>Request Sent</label>
-                        </div>
-                    }
+                    </div>
+                }
+            }
+            @else {
+                <div class="no-users">
+                    <h2>No new users yet</h2>
                 </div>
             }
         </div>

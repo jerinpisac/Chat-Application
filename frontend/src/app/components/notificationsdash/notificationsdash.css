@@ -1,0 +1,52 @@
+.not-body{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.not-fr-card{
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.not-fr-card .main{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.not-fr-card .imgname{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.not-fr-card .imgname img{
+    width: 50px;
+    height: 50px;
+}
+
+.not-fr-card .other{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.not-fr-card .other i{
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.acc{
+    color: #33ff81;
+}
+
+.dec{
+    color: red;
+}

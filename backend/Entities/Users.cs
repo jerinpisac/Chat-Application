@@ -6,7 +6,7 @@ public class Users
     public required string FullName { get; set; }
     public required string Email { get; set; }
     public required string Password { get; set; }
-    public string? ProfilePic { get; set; }
+    public required string ProfilePic { get; set; }
     public string Bio { get; set; } = "";
     public required string Language { get; set; }
     public string Status { get; set; } = "online";
