@@ -52,4 +52,8 @@ export class AuthService {
   fetchNotifications(id : number){
     return this.http.post(environment.localhost + '/fetchnotifications', { id });
   }
+
+  declineRequest(id1 : number, id2 : number){
+    return this.http.post(environment.localhost + '/declinerequest', {id1, id2});
+  }
 }

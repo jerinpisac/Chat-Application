@@ -21,4 +21,16 @@ export class Notificationsdash implements OnInit{
     })
   }
 
+  DeclineRequest(id : number){
+    console.log(this.service.userDetails.id);
+    console.log(id);
+    this.service.declineRequest(this.service.userDetails.id, id).subscribe({
+      next: res => {
+        alert("Declined request!");
+        window.location.reload();
+      },
+      error: err => console.log(err)
+    })
+  }
+
 }

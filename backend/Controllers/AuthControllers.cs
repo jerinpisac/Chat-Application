@@ -143,6 +143,27 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
+    [HttpPost("declinerequest")]
+    public async Task<IActionResult> DeclineRequest([FromBody] IdsDto Id)
+    {
+        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
+        dbContext.Notifications.Remove(id1!);
+        await dbContext.SaveChangesAsync();
+
+        var id2 = await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
+        dbContext.FriendRequest.Remove(id2!);
+        await dbContext.SaveChangesAsync();
+
+        return Ok();
+    }
+
+    [HttpPost("fetchrequests")]
+    public async Task<IActionResult> FetchRequest([FromBody] IdDto Id)
+    {
+        var items = await dbContext.FriendRequest.Include(t => t.User).Where(t => t.UserId1 == Id.Id).ToListAsync();
+        return Ok(items);
+    }
+
     [HttpPost("fetchnotifications")]
     public async Task<IActionResult> FetchNotifications([FromBody] IdDto Id)
     {

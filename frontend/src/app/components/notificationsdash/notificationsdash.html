@@ -1,22 +1,29 @@
 <div class="not-body">
-    @for (nots of notifications; track $index) {
-        @if (nots.type == "Friend_Request") {
-            <div class="not-fr-card">
-                <div class="main">
-                    <div class="imgname">
-                        <img src={{nots.profilePic}} >
-                        <h3 style="cursor: pointer;">{{nots.fullName}}</h3>
+    @if(notifications.length > 0){
+        @for (nots of notifications; track $index) {
+            @if (nots.type == "Friend_Request") {
+                <div class="not-fr-card">
+                    <div class="main">
+                        <div class="imgname">
+                            <img src={{nots.profilePic}} >
+                            <h3 style="cursor: pointer;">{{nots.fullName}}</h3>
+                        </div>
+                        <div class="content">
+                            <h4>Sent a Friend Request</h4>
+                        </div>
                     </div>
-                    <div class="content">
-                        <h4>Sent a Friend Request</h4>
+                    <div class="other">
+                        <h4>{{nots.sendAt}}</h4>
+                        <i class="fa fa-check-circle acc"></i>
+                        <i class="fa fa-times-circle dec" (click)="DeclineRequest(nots.userId1)"></i>
                     </div>
                 </div>
-                <div class="other">
-                    <h4>{{nots.sendAt}}</h4>
-                    <i class="fa fa-check-circle acc"></i>
-                    <i class="fa fa-times-circle dec"></i>
-                </div>
-            </div>
+            }
         }
+    }
+    @else {
+        <div class="no-noti">
+            <h2>No notifications</h2>
+        </div>
     }
 </div>
