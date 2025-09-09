@@ -15,15 +15,12 @@ export class Notificationsdash implements OnInit{
     this.service.fetchNotifications(this.service.userDetails.id).subscribe({
       next: res => {
         this.notifications = res;
-        console.log(this.notifications)
       },
       error: err => console.log(err)
     })
   }
 
   DeclineRequest(id : number){
-    console.log(this.service.userDetails.id);
-    console.log(id);
     this.service.declineRequest(this.service.userDetails.id, id).subscribe({
       next: res => {
         alert("Declined request!");

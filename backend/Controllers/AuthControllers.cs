@@ -133,7 +133,8 @@ public class AuthController : ControllerBase
         FriendRequest friend = new()
         {
             UserId1 = friendRequestDto.UserId1,
-            UserId2 = friendRequestDto.UserId2
+            UserId2 = friendRequestDto.UserId2,
+            SentAt = DateTime.Now
         };
 
         await dbContext.Notifications.AddAsync(request);
@@ -160,7 +161,12 @@ public class AuthController : ControllerBase
     [HttpPost("fetchrequests")]
     public async Task<IActionResult> FetchRequest([FromBody] IdDto Id)
     {
-        var items = await dbContext.FriendRequest.Include(t => t.User).Where(t => t.UserId1 == Id.Id).ToListAsync();
+        var items = await dbContext.FriendRequest
+            .Include(t => t.User)
+            .Where(t => t.UserId1 == Id.Id)
+            .Select(t => new { FullName = t.User!.FullName, UserId2 = t.UserId2, ProfilePic = t.User!.ProfilePic, SentAt = t.SentAt })
+            .OrderByDescending(t => t.SentAt)
+            .ToListAsync();
         return Ok(items);
     }
 

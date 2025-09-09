@@ -56,4 +56,8 @@ export class AuthService {
   declineRequest(id1 : number, id2 : number){
     return this.http.post(environment.localhost + '/declinerequest', {id1, id2});
   }
+
+  fetchRequests(id : number){
+    return this.http.post(environment.localhost + '/fetchrequests', {id});
+  }
 }

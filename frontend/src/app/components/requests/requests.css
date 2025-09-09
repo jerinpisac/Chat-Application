@@ -1,0 +1,65 @@
+.req-body{
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.req-card{
+    background-color: black;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+}
+
+.req-card .main{
+    width: 70%;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+.req-card .imgname{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 40%;
+}
+
+.req-card .imgname img{
+    width: 50px;
+    height: 50px;
+}
+
+.req-card .content{
+    width: 30%;
+}
+
+.req-card .other{
+    width: 25%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.req-card .other i{
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.dec{
+    color: red;
+}
+
+.no-req{
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    border-radius: 10px;
+}

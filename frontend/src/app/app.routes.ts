@@ -8,6 +8,7 @@ import { Homedash } from './components/homedash/homedash';
 import { Friendsdash } from './components/friendsdash/friendsdash';
 import { Notificationsdash } from './components/notificationsdash/notificationsdash';
 import { Profile } from './components/profile/profile';
+import { Requests } from './components/requests/requests';
 
 export const routes: Routes = [
     {path: "", component: Home, children: [
@@ -20,6 +21,7 @@ export const routes: Routes = [
         {path: '', component: Homedash},
         {path: 'friends', component: Friendsdash},
         {path: 'notifications', component: Notificationsdash},
-        {path: "profile", component: Profile}
+        {path: "profile", component: Profile},
+        {path: "requests", component: Requests}
     ]}
 ];

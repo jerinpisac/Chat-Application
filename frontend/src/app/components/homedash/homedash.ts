@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/auth';
 import { userModel } from '../../shared/models/auth.model';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-homedash',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './homedash.html',
   styleUrl: './homedash.css'
 })

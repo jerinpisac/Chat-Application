@@ -1,0 +1,33 @@
+<div class="req-body">
+    @if(requests.length > 0){
+        @for (item of requests; track $index) {
+            <div class="req-card">
+                <div class="main">
+                    <div class="imgname">
+                        <img src={{item.profilePic}} >
+                        <h3 style="cursor: pointer;">{{item.fullName}}</h3>
+                    </div>
+                    <div class="content">
+                        <h4>You have sent a Friend Request</h4>
+                    </div>
+                </div>
+                <div class="other">
+                    <h4>
+                        {{
+                            (item.sentAt.split("T")[0] == (currDate.toString() | date:'yyyy-MM-dd'))
+                            ? "Today"
+                            : item.sentAt.split("T")[0]
+                        }}
+                        {{item.sentAt.split("T")[1].substring(0,5)}}
+                    </h4>
+                    <i class="fa fa-times-circle dec" (click)="RemoveRequest(item.userId2)"></i>
+                </div>
+            </div>
+        }
+    }
+    @else {
+        <div class="no-req">
+            <h2>You haven't sent any request yet</h2>
+        </div>
+    }
+</div>
