@@ -30,4 +30,14 @@ export class Notificationsdash implements OnInit{
     })
   }
 
+  AcceptRequest(id : number){
+    this.service.acceptRequest(this.service.userDetails.id, id).subscribe({
+      next: res => {
+        alert("Accepted request!");
+        window.location.reload();
+      },
+      error: err => console.log(err)
+    })
+  }
+
 }

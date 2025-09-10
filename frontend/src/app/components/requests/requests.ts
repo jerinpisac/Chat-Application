@@ -23,7 +23,7 @@ export class Requests implements OnInit{
   }
 
   RemoveRequest(id : number){
-    this.service.declineRequest(this.service.userDetails.id, id).subscribe({
+    this.service.removeRequest(this.service.userDetails.id, id).subscribe({
       next: res => {
         alert("Removed request!");
         window.location.reload();

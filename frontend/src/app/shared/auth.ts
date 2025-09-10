@@ -57,6 +57,14 @@ export class AuthService {
     return this.http.post(environment.localhost + '/declinerequest', {id1, id2});
   }
 
+  removeRequest(id1 : number, id2 : number){
+    return this.http.post(environment.localhost + '/removerequest', {id1, id2});
+  }
+
+  acceptRequest(id1 : number, id2 : number){
+    return this.http.post(environment.localhost + '/acceptrequest', {id1, id2});
+  }
+
   fetchRequests(id : number){
     return this.http.post(environment.localhost + '/fetchrequests', {id});
   }

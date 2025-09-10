@@ -14,8 +14,42 @@
                     </div>
                     <div class="other">
                         <h4>{{nots.sendAt}}</h4>
-                        <i class="fa fa-check-circle acc"></i>
+                        <i class="fa fa-check-circle acc" (click)="AcceptRequest(nots.userId1)"></i>
                         <i class="fa fa-times-circle dec" (click)="DeclineRequest(nots.userId1)"></i>
+                    </div>
+                </div>
+            }
+            @else if (nots.type == "Friend_Request_Declined") {
+                <div class="not-fr-card">
+                    <div class="main">
+                        <div class="imgname">
+                            <img src={{nots.profilePic}} >
+                            <h3 style="cursor: pointer;">{{nots.fullName}}</h3>
+                        </div>
+                        <div class="content">
+                            <h4>Rejected your Friend Request</h4>
+                        </div>
+                    </div>
+                    <div class="other">
+                        <h4>{{nots.sendAt}}</h4>
+                        <p>Mark as Read</p>
+                    </div>
+                </div>
+            }
+            @else if (nots.type == "Friend_Request_Accepted") {
+                <div class="not-fr-card">
+                    <div class="main">
+                        <div class="imgname">
+                            <img src={{nots.profilePic}} >
+                            <h3 style="cursor: pointer;">{{nots.fullName}}</h3>
+                        </div>
+                        <div class="content">
+                            <h4>Accepted your Friend Request</h4>
+                        </div>
+                    </div>
+                    <div class="other">
+                        <h4>{{nots.sendAt}}</h4>
+                        <p>Mark as Read</p>
                     </div>
                 </div>
             }
