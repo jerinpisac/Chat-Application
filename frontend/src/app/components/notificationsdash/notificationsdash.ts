@@ -40,4 +40,14 @@ export class Notificationsdash implements OnInit{
     })
   }
 
+  MarkAsRead(id : number, type : string){
+    this.service.marksAsRead(id, this.service.userDetails.id, type).subscribe({
+      next: res => {
+        alert("Marked as read!");
+        window.location.reload();
+      },
+      error: err => console.log(err)
+    })
+  }
+
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EmbeddedViewRef, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { loginModel, registerModel, userModel } from './models/auth.model';
 
@@ -63,6 +63,10 @@ export class AuthService {
 
   acceptRequest(id1 : number, id2 : number){
     return this.http.post(environment.localhost + '/acceptrequest', {id1, id2});
+  }
+
+  marksAsRead(id1: number, id2 : number, type : string){
+    return this.http.patch(environment.localhost + '/markasread', { id1, id2, type });
   }
 
   fetchRequests(id : number){

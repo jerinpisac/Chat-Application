@@ -231,6 +231,20 @@ public class AuthController : ControllerBase
         return Ok(items);
     }
 
+    [HttpPatch("markasread")]
+    public async Task<IActionResult> MarkAsRead([FromBody] MarkAsReadDto mar)
+    {
+        var id = await dbContext.Notifications
+                        .FirstOrDefaultAsync(t => t.UserId1 == mar.Id1 && t.UserId2 == mar.Id2 && t.Type == mar.Type && t.IsSeen == false);
+
+        if (id is not null)
+        {
+            id.IsSeen = true;
+            await dbContext.SaveChangesAsync();
+        }
+        return Ok(id);
+    }
+
     [HttpPost("fetchnotifications")]
     public async Task<IActionResult> FetchNotifications([FromBody] IdDto Id)
     {
