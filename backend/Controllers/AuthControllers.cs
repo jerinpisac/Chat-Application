@@ -149,9 +149,13 @@ public class AuthController : ControllerBase
     [HttpPost("declinerequest")]
     public async Task<IActionResult> DeclineRequest([FromBody] IdsDto Id)
     {
-        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
-        dbContext.Notifications.Remove(id1!);
-        await dbContext.SaveChangesAsync();
+        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => ((t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1)) && t.IsSeen == false && t.Type == "Friend_Request");
+
+        if (id1 is not null)
+        {
+            id1.IsSeen = true;
+            await dbContext.SaveChangesAsync();
+        }
 
         var id2 = await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
         dbContext.FriendRequest.Remove(id2!);
@@ -174,7 +178,7 @@ public class AuthController : ControllerBase
     [HttpPost("removerequest")]
     public async Task<IActionResult> RemoveRequest([FromBody] IdsDto Id)
     {
-        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
+        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => ((t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1)) && t.IsSeen == false && t.Type == "Friend_Request");
         dbContext.Notifications.Remove(id1!);
         await dbContext.SaveChangesAsync();
 
@@ -188,9 +192,13 @@ public class AuthController : ControllerBase
     [HttpPost("acceptrequest")]
     public async Task<IActionResult> AcceptRequest([FromBody] IdsDto Id)
     {
-        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
-        dbContext.Notifications.Remove(id1!);
-        await dbContext.SaveChangesAsync();
+        var id1 = await dbContext.Notifications.FirstOrDefaultAsync(t => ((t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1)) && t.IsSeen == false && t.Type == "Friend_Request");
+
+        if (id1 is not null)
+        {
+            id1.IsSeen = true;
+            await dbContext.SaveChangesAsync();
+        }
 
         var id2 = await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == Id.Id1 && t.UserId2 == Id.Id2) || (t.UserId1 == Id.Id2 && t.UserId2 == Id.Id1));
         dbContext.FriendRequest.Remove(id2!);
@@ -294,7 +302,7 @@ public class AuthController : ControllerBase
     [HttpDelete("delete")]
     public async Task<IActionResult> DeleteFriendRequest()
     {
-        var a = await dbContext.Notifications.FirstOrDefaultAsync(x => x.UserId1 == 1);
+        var a = await dbContext.Notifications.FirstOrDefaultAsync(x => x.IsSeen == true);
         dbContext.Notifications.Remove(a!);
         await dbContext.SaveChangesAsync();
 
