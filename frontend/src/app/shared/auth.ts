@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   fetchUsers(id : number){
-    return this.http.post(environment.localhost + "/fetchusers", { id });
+    return this.http.get(environment.localhost + "/fetchusers?Id=" + id);
   }
 
   sendFriendRequest(id : number){
@@ -50,7 +50,7 @@ export class AuthService {
   }
 
   fetchNotifications(id : number){
-    return this.http.post(environment.localhost + '/fetchnotifications', { id });
+    return this.http.get(environment.localhost + '/fetchnotifications?Id=' + id);
   }
 
   declineRequest(id1 : number, id2 : number){
@@ -70,6 +70,10 @@ export class AuthService {
   }
 
   fetchRequests(id : number){
-    return this.http.post(environment.localhost + '/fetchrequests', {id});
+    return this.http.get(environment.localhost + '/fetchrequests?Id=' + id);
+  }
+
+  fetchFriends(id : number){
+    return this.http.get(environment.localhost + '/fetchfriends?Id=' + id);
   }
 }

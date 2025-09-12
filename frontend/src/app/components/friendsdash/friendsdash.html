@@ -1,1 +1,30 @@
-<p>friendsdash works!</p>
+<div class="fr-body">
+    @if(friends.length > 0){
+        <div class="friend-body">
+            @for (friend of friends; track $index) {
+                <div class="friend-card">
+                    <div class="friend-card-header">
+                        <img [src]="friend.profilePic" alt="">
+                        <label>{{ friend.fullName }}</label>
+                    </div>
+                    <div class="friend-card-middle">
+                        <div class="friend-card-language">
+                            Language: {{ friend.language }}
+                        </div>
+                        <div class="friend-card-status">
+                            Status : {{ friend.status }}
+                        </div>
+                    </div>
+                    <button>
+                        Message
+                    </button>
+                </div>
+            }
+        </div>
+    }
+    @else {
+        <div class="no-fr">
+            <h2>No Friends yet</h2>
+        </div>
+    }
+</div>

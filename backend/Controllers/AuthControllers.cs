@@ -91,18 +91,18 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("fetchusers")]
-    public async Task<IActionResult> FetchUsersForHome([FromBody] IdDto Id)
+    [HttpGet("fetchusers")]
+    public async Task<IActionResult> FetchUsersForHome([FromQuery] int Id)
     {
-        var users = await dbContext.Users.Where(a => Id.Id != a.Id).ToListAsync();
+        var users = await dbContext.Users.Where(a => Id != a.Id).ToListAsync();
 
         List<UserDto> userList = [];
 
         foreach (var user in users)
         {
-            if (!((await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == user.Id && t.UserId2 == Id.Id) || (t.UserId2 == user.Id && t.UserId1 == Id.Id)) is null)
+            if (!((await dbContext.FriendRequest.FirstOrDefaultAsync(t => (t.UserId1 == user.Id && t.UserId2 == Id) || (t.UserId2 == user.Id && t.UserId1 == Id)) is null)
             ^ 
-            (await dbContext.Friends.FirstOrDefaultAsync(t => (t.UserId1 == user.Id && t.UserId2 == Id.Id) || (t.UserId2 == user.Id && t.UserId1 == Id.Id)) is null))) {
+            (await dbContext.Friends.FirstOrDefaultAsync(t => (t.UserId1 == user.Id && t.UserId2 == Id) || (t.UserId2 == user.Id && t.UserId1 == Id)) is null))) {
                 var newUser = new UserDto
                 (
                     user.Id,
@@ -227,12 +227,12 @@ public class AuthController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("fetchrequests")]
-    public async Task<IActionResult> FetchRequest([FromBody] IdDto Id)
+    [HttpGet("fetchrequests")]
+    public async Task<IActionResult> FetchRequest([FromQuery] int Id)
     {
         var items = await dbContext.FriendRequest
             .Include(t => t.User)
-            .Where(t => t.UserId1 == Id.Id)
+            .Where(t => t.UserId1 == Id)
             .Select(t => new { FullName = t.User!.FullName, UserId2 = t.UserId2, ProfilePic = t.User!.ProfilePic, SentAt = t.SentAt })
             .OrderByDescending(t => t.SentAt)
             .ToListAsync();
@@ -253,11 +253,47 @@ public class AuthController : ControllerBase
         return Ok(id);
     }
 
-    [HttpPost("fetchnotifications")]
-    public async Task<IActionResult> FetchNotifications([FromBody] IdDto Id)
+    [HttpGet("fetchfriends")]
+    public async Task<IActionResult> FetchFriends([FromQuery] int Id)
+    {
+        var friends1 = await dbContext.Friends.Where(t => t.UserId1 == Id).Select(t => t.UserId2).ToListAsync();
+        var friends2 = await dbContext.Friends.Where(t => t.UserId2 == Id).Select(t => t.UserId1).ToListAsync();
+
+        if (friends2 is not null) friends1?.AddRange(friends2);
+        friends1 ??= friends2;
+
+        List<Users> users = [];
+
+        if (friends1 is not null)
+            users = await dbContext.Users.Where(t => friends1.Contains(t.Id)).ToListAsync();
+
+        List<FriendsDto> friends = [];
+
+        if (users is not null)
+        {
+            foreach (var item in users)
+            {
+                FriendsDto friendsDto = new
+                (
+                    item.Id,
+                    item.FullName,
+                    item.ProfilePic,
+                    item.Language,
+                    item.Status
+                );
+
+                friends.Add(friendsDto);
+            }
+        }
+
+        return Ok(friends);
+    }
+
+    [HttpGet("fetchnotifications")]
+    public async Task<IActionResult> FetchNotifications([FromQuery] int Id)
     {
         var nots = dbContext.Notifications.Include(t => t.Users)
-                    .Where(t => t.UserId2 != null && t.UserId2 == Id.Id && t.IsSeen == false)
+                    .Where(t => t.UserId2 != null && t.UserId2 == Id && t.IsSeen == false)
                     .OrderByDescending(t => t.SendAt);
 
         List<NotificationsDto> snots = [];
@@ -277,7 +313,7 @@ public class AuthController : ControllerBase
             snots.Add(x);
         }
 
-        var ids = await dbContext.GroupMembers.Where(t => t.UserId == Id.Id).Select(t => t.GroupId).ToListAsync();
+        var ids = await dbContext.GroupMembers.Where(t => t.UserId == Id).Select(t => t.GroupId).ToListAsync();
 
         var gnots = await dbContext.Notifications.Include(t => t.Users).Include(t => t.Groups).Where(t => t.GroupId != null && t.IsSeen == false && ids.Contains((int)t.GroupId)).OrderByDescending(t => t.SendAt).ToListAsync();
 

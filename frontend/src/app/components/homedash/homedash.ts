@@ -11,6 +11,7 @@ import { RouterLink } from "@angular/router";
 })
 export class Homedash implements OnInit {
   users : userModel[] = []
+  friends : any = []
   constructor(public service : AuthService) {}
   
   ngOnInit(): void {
@@ -19,6 +20,14 @@ export class Homedash implements OnInit {
         this.users = res
         console.log(res)
       }
+    })
+
+    this.service.fetchFriends(this.service.userDetails.id).subscribe({
+      next: res => {
+        this.friends = res;
+        if(this.friends.length > 3) this.friends = this.friends.slice(0, 3);
+      },
+      error: err => console.log(err)
     })
   }
 

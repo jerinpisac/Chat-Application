@@ -7,11 +7,36 @@
                 <label>Friend Requests</label>
             </div>
         </div>
-        <div class="friends-body">
-            <div class="no-friends">
-                <h2>No friends yet</h2>
-                <label>Connect with language partners below to start conversation!</label>
-            </div>
+        <div class="fr-body">
+            @if(friends.length > 0){
+                <div class="friend-body">
+                    @for (friend of friends; track $index) {
+                        <div class="friend-card">
+                            <div class="friend-card-header">
+                                <img [src]="friend.profilePic" alt="">
+                                <label>{{ friend.fullName }}</label>
+                            </div>
+                            <div class="friend-card-middle">
+                                <div class="friend-card-language">
+                                    Language: {{ friend.language }}
+                                </div>
+                                <div class="friend-card-status">
+                                    Status : {{ friend.status }}
+                                </div>
+                            </div>
+                            <button>
+                                Message
+                            </button>
+                        </div>
+                    }
+                </div>
+            }
+            @else {
+                <div class="no-fr">
+                    <h2>No Friends yet</h2>
+                    <label>Connect with language partners below to start conversation!</label>
+                </div>
+            }
         </div>
     </div>
     <div class="new-friends-sections">
@@ -19,23 +44,23 @@
             <h1>Connect with new People</h1>
             <label>Discover people based on your profile and enjoy!</label>
         </div>
-        <div class="friends-body">
-            @if (users != []) {
+        <div class="users-body">
+            @if (users.length > 0) {
                 @for (user of users; track $index) {
-                    <div class="friend-card">
-                        <div class="friend-card-header">
+                    <div class="user-card">
+                        <div class="user-card-header">
                             <img [src]="user.profilePic" alt="">
                             <label>{{ user.fullName }}</label>
                         </div>
-                        <div class="friend-card-middle">
-                            <div class="friend-card-language">
+                        <div class="user-card-middle">
+                            <div class="user-card-language">
                                 Language: {{ user.language }}
                             </div>
-                            <div class="friend-card-joined-on">
+                            <div class="user-card-joined-on">
                                 Joined on: {{ user.joinedAt.split(" ")[0] }}
                             </div>
                         </div>
-                        <div class="friend-card-bio">
+                        <div class="user-card-bio">
                             {{ user.bio }}
                         </div>
                         <button (click)="sendRequest(user.id)" >

@@ -1,0 +1,102 @@
+.fr-body{
+    padding: 50px;
+}
+
+.friend-body{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.friend-card{
+    width: 350px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 3px 6px black;
+    transition: 300ms ease-in-out;
+}
+
+.friend-card:hover{
+    scale: 1.02;
+}
+
+.friend-card .friend-card-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin: 20px 0px;
+}
+
+.friend-card-header img{
+    width: 60px;
+    height: 60px;
+}
+
+.friend-card-middle{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 20px 0px;
+}
+
+.friend-card-language{
+    background-color: #28c464;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+.friend-card-status{
+    border: 2px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+button{
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    background: #28c464;
+    border: 2px solid #28c464;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+}
+
+button::after{
+    content: '';
+    width: 0%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: -1;
+    background: black;
+    transition: 300ms ease-in-out;
+    border-radius: 20px;
+}
+
+button:hover::after{
+    width: 100%;
+}
+
+button:hover{
+    color: #28c464;
+}
+
+.no-fr{
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    padding: 30px 0;
+    color: white;
+    border-radius: 10px;
+}

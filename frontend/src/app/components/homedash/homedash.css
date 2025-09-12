@@ -28,19 +28,6 @@
     margin-right: 15px;
 }
 
-.no-friends{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    margin-top: 40px;
-    background: black;
-    border-radius: 10px;
-    padding: 10px 0px;
-}
-
-.no-friends label,
 .new-friends-sections .friends-header label{
     margin-bottom: 15px;
     font-size: 17px;
@@ -50,7 +37,7 @@
     color: white;
 }
 
-.new-friends-sections .friends-body{
+.new-friends-sections .users-body{
     margin: 20px 0px;
     display: flex;
     flex-wrap: wrap;
@@ -58,7 +45,7 @@
     gap: 20px;
 }
 
-.friend-card{
+.user-card{
     width: 350px;
     background-color: black;
     border-radius: 10px;
@@ -67,11 +54,11 @@
     transition: 300ms ease-in-out;
 }
 
-.friend-card:hover{
+.user-card:hover{
     scale: 1.02;
 }
 
-.friend-card .friend-card-header{
+.user-card .user-card-header{
     display: flex;
     align-items: center;
     gap: 20px;
@@ -81,26 +68,26 @@
     margin: 20px 0px;
 }
 
-.friend-card-header img{
+.user-card-header img{
     width: 60px;
     height: 60px;
 }
 
-.friend-card-middle{
+.user-card-middle{
     display: flex;
     align-items: center;
     gap: 30px;
     margin: 20px 0px;
 }
 
-.friend-card-language{
+.user-card-language{
     background-color: #28c464;
     border-radius: 20px;
     padding: 5px 10px;
     font-weight: 500;
 }
 
-.friend-card-joined-on{
+.user-card-joined-on{
     border: 2px solid white;
     color: white;
     border-radius: 20px;
@@ -108,7 +95,7 @@
     font-weight: 500;
 }
 
-.friend-card-bio{
+.user-card-bio{
     color: white;
     margin: 20px 0px;
 }
@@ -169,4 +156,73 @@ button:hover{
     justify-content: center;
     align-items: center;
     font-weight: 600;
+}
+
+.fr-body{
+    padding: 30px 0;
+}
+
+.friend-body{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+}
+.friend-card{
+    width: 300px;
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 3px 6px black;
+    transition: 300ms ease-in-out;
+}
+
+.friend-card:hover{
+    scale: 1.02;
+}
+
+.friend-card .friend-card-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: white;
+    margin: 20px 0px;
+}
+
+.friend-card-header img{
+    width: 60px;
+    height: 60px;
+}
+
+.friend-card-middle{
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin: 20px 0px;
+}
+
+.friend-card-language{
+    background-color: #28c464;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+.friend-card-status{
+    border: 2px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    font-weight: 500;
+}
+
+.no-fr{
+    width: 100%;
+    text-align: center;
+    background-color: black;
+    padding: 30px 0;
+    color: white;
+    border-radius: 10px;
 }
